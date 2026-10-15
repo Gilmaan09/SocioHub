@@ -71,6 +71,10 @@ if (result.user.role === 'ADMIN') {
 
       <div className="login-card">
 
+        <Link className="auth-close" to="/" aria-label="Return to home" title="Return to home">
+          <span aria-hidden="true">×</span>
+        </Link>
+
         <strong className="login-brand">
           Socio<span>Hub</span>
         </strong>

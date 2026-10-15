@@ -10,7 +10,16 @@ const date = (value) => value ? new Intl.DateTimeFormat('en-IN', { dateStyle: 'l
 const getSignedInResident = () => {
   try { return JSON.parse(localStorage.getItem('sociohub_user') || 'null') } catch { return null }
 }
-const demoPaymentsEnabled = import.meta.env.DEV
+function loadRazorpayCheckout() {
+  if (window.Razorpay) return Promise.resolve()
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    script.onload = resolve
+    script.onerror = () => reject(new Error('Could not load secure payment checkout. Check your internet connection and retry.'))
+    document.body.appendChild(script)
+  })
+}
 
 export default function BillDetails() {
   const { id } = useParams()
@@ -36,14 +45,45 @@ export default function BillDetails() {
     setError('')
     setPaying(true)
     try {
-      const result = await structureApi.payMyBill(id)
-      setBill(result.bill)
-      setPayment(result.payment)
-      setSociety(result.society)
-      setResident(result.resident)
+      const orderResult = await structureApi.createMyBillPaymentOrder(id)
+      await loadRazorpayCheckout()
+      const checkout = new window.Razorpay({
+        key: orderResult.keyId,
+        amount: orderResult.order.amount,
+        currency: orderResult.order.currency,
+        name: society?.name || 'SocioHub',
+        description: `Maintenance bill · ${bill.billingPeriod}`,
+        order_id: orderResult.order.id,
+        prefill: {
+          name: resident?.name || '',
+          email: resident?.email || '',
+          contact: resident?.phone || '',
+        },
+        theme: { color: '#ef715d' },
+        handler: async (response) => {
+          try {
+            await structureApi.verifyMyBillPayment(response)
+            const refreshed = await structureApi.getMyBill(id)
+            setBill(refreshed.bill)
+            setPayment(refreshed.payment)
+            setSociety(refreshed.society)
+            setResident(refreshed.resident)
+          } catch (requestError) {
+            setError(`${requestError.message} If your account was charged, please contact society management before trying again.`)
+          }
+        },
+        modal: {
+          ondismiss: () => setPaying(false),
+        },
+      })
+      checkout.on('payment.failed', (event) => {
+        setError(event.error?.description || 'Payment did not complete. You can try again.')
+        setPaying(false)
+      })
+      checkout.open()
+      setPaying(false)
     } catch (requestError) {
       setError(requestError.message)
-    } finally {
       setPaying(false)
     }
   }
@@ -95,14 +135,14 @@ export default function BillDetails() {
           <div className="receipt-payment-heading"><strong>Payment successful</strong><span>Paid on {dateTime(payment.paidAt)}</span></div>
           <div className="receipt-payment-grid">
             <div><span>Transaction ID</span><strong>{payment.transactionId}</strong></div>
-            <div><span>Payment method</span><strong>{payment.paymentMethod === 'MOCK' ? 'Demo payment' : payment.paymentMethod}</strong></div>
+          <div><span>Payment method</span><strong>{payment.paymentMethod === 'RAZORPAY' ? 'Razorpay' : 'Demo payment'}</strong></div>
             <div><span>Received by</span><strong>{society?.name || 'Society management'}</strong></div>
             <div><span>Payment status</span><strong>Successful</strong></div>
           </div>
-        </section> : <div className="bill-payment-note"><strong>Payment summary</strong><span>Amount payable: {money(bill.totalAmount)}</span><span>{demoPaymentsEnabled ? 'Demo checkout is enabled for local development.' : 'Online payment is not configured. Please contact society management.'}</span></div>}
+        </section> : <div className="bill-payment-note"><strong>Secure online payment</strong><span>Amount payable: {money(bill.totalAmount)}</span><span>Your bill is marked paid only after Razorpay confirms the captured payment.</span></div>}
 
         <footer className="document-footer"><span>This is a computer-generated {payment ? 'receipt' : 'bill'} from SocioHub.</span><button type="button" className="secondary-button receipt-print-button" onClick={() => window.print()}>Download PDF</button></footer>
-        {!payment && demoPaymentsEnabled && bill.status !== 'PAID' && <button type="button" className="primary-button payment-placeholder" onClick={payNow} disabled={paying}>{paying ? 'Processing demo payment…' : `Pay ${money(bill.totalAmount)} · Demo`}</button>}
+        {!payment && bill.status !== 'PAID' && <button type="button" className="primary-button payment-placeholder" onClick={payNow} disabled={paying}>{paying ? 'Opening secure checkout…' : `Pay ${money(bill.totalAmount)}`}</button>}
       </article>}
     </section>
   )

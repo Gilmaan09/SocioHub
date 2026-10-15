@@ -33,7 +33,14 @@ export async function apiRequest(path, options = {}) {
     throw error
   }
 
-  if (method !== 'GET' && !['/auth/login', '/auth/register-society'].includes(path)) {
+  const isResidentPaymentRequest =
+    path === '/bills/my/payment/verify' ||
+    /^\/bills\/my\/[^/]+\/pay\/order$/.test(path)
+
+  if (isResidentPaymentRequest) {
+    // A full-page refresh would close Razorpay Checkout before the resident can finish.
+    window.clearTimeout(refreshTimer)
+  } else if (method !== 'GET' && !['/auth/login', '/auth/register-society'].includes(path)) {
     scheduleRefresh()
   }
 
@@ -91,7 +98,8 @@ export const structureApi = {
   createBill: (body) => apiRequest('/bills', { method: 'POST', body: JSON.stringify(body) }),
   getMyBills: () => apiRequest('/bills/my'),
   getMyBill: (id) => apiRequest(`/bills/my/${id}`),
-  payMyBill: (id) => apiRequest(`/bills/my/${id}/pay`, { method: 'POST' }),
+  createMyBillPaymentOrder: (id) => apiRequest(`/bills/my/${id}/pay/order`, { method: 'POST' }),
+  verifyMyBillPayment: (details) => apiRequest('/bills/my/payment/verify', { method: 'POST', body: JSON.stringify(details) }),
   getMyComplaints: () => apiRequest('/complaints/my'),
   getMyComplaint: (id) => apiRequest(`/complaints/my/${id}`),
   createComplaint: (body) => apiRequest('/complaints', { method: 'POST', body: JSON.stringify(body) }),

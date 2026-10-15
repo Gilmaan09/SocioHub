@@ -16,6 +16,7 @@ const visitorRoutes = require('./routes/visitorRoutes')
 const notificationRoutes = require('./routes/notificationRoutes')
 const financeRoutes = require('./routes/financeRoutes')
 const reportsRoutes = require('./routes/reportsRoutes')
+const { razorpayWebhook } = require('./controllers/billController')
 function createApp() {
   const app = express()
 
@@ -29,6 +30,8 @@ function createApp() {
       callback(null, !origin || allowedOrigins.includes(origin))
     },
   }))
+  // Razorpay webhook signatures are calculated from the exact request bytes.
+  app.post('/api/bills/razorpay/webhook', express.raw({ type: 'application/json' }), razorpayWebhook)
   app.use(express.json())
 
   app.get('/api/health', (request, response) => {
@@ -72,6 +75,10 @@ function createApp() {
       return response.status(400).json({
         message: error.message,
       })
+    }
+
+    if (error.status === 503) {
+      return response.status(503).json({ message: error.message })
     }
 
     response.status(500).json({

@@ -7,12 +7,43 @@
 }
 
 .login-card {
+    position: relative;
     width: min(100%, 390px);
     padding: 36px;
     border: 1px solid #ebe9e5;
     border-radius: 12px;
     background: #fff;
     box-shadow: 0 14px 35px rgba(36, 49, 61, .08);
+}
+
+.auth-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid #ebe9e5;
+    border-radius: 50%;
+    color: #68747b;
+    background: #fff;
+    font-size: 25px;
+    line-height: 1;
+    text-decoration: none;
+    transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.auth-close:hover {
+    transform: rotate(90deg);
+    border-color: #ef715d;
+    color: #fff;
+    background: #ef715d;
+}
+
+.auth-close:focus-visible {
+    outline: 3px solid #ef715d;
+    outline-offset: 3px;
 }
 
 .login-brand {

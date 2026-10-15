@@ -1,8 +1,6 @@
 const Flat = require('../models/Flat')
 const MaintenanceBill = require('../models/MaintenanceBill')
-const Payment = require('../models/Payment')
-const { recordMaintenancePayment } = require('./financeService')
-const { notifyFlatResidents, notifySocietyAdmins, notifyUsers } = require('./notificationService')
+const { notifyFlatResidents } = require('./notificationService')
 
 async function createBill({ societyId, createdBy, data }) {
   const flat = await Flat.findOne({ _id: data.flatId, societyId })
@@ -57,70 +55,4 @@ async function findResidentBill(user, billId) {
   return MaintenanceBill.findOne({ _id: billId, societyId: user.societyId, flatId: user.flatId, status: { $ne: 'CANCELLED' } }).populate({ path: 'flatId', populate: { path: 'wingId' } })
 }
 
-async function payResidentBill(user, billId) {
-  // The current checkout only creates a MOCK payment record. Never let it
-  // mark a real production bill as paid until a verified provider callback is
-  // implemented.
-  if (process.env.NODE_ENV === 'production') {
-    return { error: 'Online payments are not configured. Please contact society management.' }
-  }
-
-  const bill = await MaintenanceBill.findOne({ _id: billId, societyId: user.societyId, flatId: user.flatId })
-  if (!bill) return { error: 'Bill not found' }
-  if (bill.status === 'CANCELLED') return { error: 'Cancelled bills cannot be paid' }
-  if (bill.status === 'PAID') return { error: 'This bill is already paid' }
-
-  let payment = await Payment.findOne({ billId: bill._id })
-  if (!payment) {
-    const transactionId = `MOCK_${Date.now()}_${user._id.toString().slice(-6)}`
-    try {
-      payment = await Payment.create({
-        societyId: user.societyId,
-        billId: bill._id,
-        residentId: user._id,
-        amount: bill.totalAmount,
-        transactionId,
-      })
-    } catch (error) {
-      if (error.code !== 11000) throw error
-      payment = await Payment.findOne({ billId: bill._id })
-    }
-  }
-
-  if (!payment || payment.status !== 'SUCCESS') return { error: 'A successful payment could not be confirmed' }
-
-  const financeResult = await recordMaintenancePayment({ payment, bill, resident: user })
-  if (financeResult.error) return financeResult
-
-  bill.status = 'PAID'
-  await bill.save()
-
-  await notifyUsers([user._id], {
-    societyId: user.societyId,
-    type: 'PAYMENT_CONFIRMED',
-    title: 'Maintenance payment confirmed',
-    message: `Your ${bill.billingPeriod} payment of ₹${payment.amount.toLocaleString('en-IN')} was recorded.`,
-    href: `/resident/maintenance/${bill._id}`,
-    entityType: 'PAYMENT',
-    entityId: payment._id,
-    eventKey: `payment-resident:${payment._id}`,
-  })
-  await notifySocietyAdmins(user.societyId, {
-    societyId: user.societyId,
-    type: 'PAYMENT_ACTIVITY',
-    title: 'Maintenance payment received',
-    message: `₹${payment.amount.toLocaleString('en-IN')} received for ${bill.billingPeriod}.`,
-    href: '/admin/finance?type=INCOME',
-    entityType: 'PAYMENT',
-    entityId: payment._id,
-    eventKey: `payment-admin:${payment._id}`,
-  })
-
-  return {
-    bill: await findResidentBill(user, bill._id),
-    payment,
-    financeTransaction: financeResult.transaction,
-  }
-}
-
-module.exports = { createBill, listAdminBills, listResidentBills, findResidentBill, payResidentBill }
+module.exports = { createBill, listAdminBills, listResidentBills, findResidentBill }

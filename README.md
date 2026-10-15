@@ -168,6 +168,9 @@ Choose **Create account** on the sign-in page to register a society and its firs
 | `JWT_SECRET` | Secret used to sign and verify authentication tokens; set a strong, unique value. |
 | `JWT_EXPIRES_IN` | Token lifetime; defaults to `7d`. |
 | `CORS_ORIGIN` | Comma-separated allowed frontend origins; local Vite origins are used if unset. |
+| `RAZORPAY_KEY_ID` | Razorpay test or live key ID. |
+| `RAZORPAY_KEY_SECRET` | Private Razorpay API key secret; backend only. |
+| `RAZORPAY_WEBHOOK_SECRET` | Secret configured for the Razorpay webhook endpoint. |
 
 For Atlas, use the connection string from your cluster and keep it private. Environment files are excluded from Git. Never commit database credentials or JWT secrets. Frontend variables beginning with `VITE_` are bundled into the browser and must not contain secrets.
 
@@ -183,7 +186,7 @@ The Express API is mounted under `/api`.
 | `/api/societies` | Society details. |
 | `/api/wings`, `/api/flats`, `/api/parking` | Society structure and parking assignments. |
 | `/api/residents`, `/api/watchmen` | Resident and watchman account management. |
-| `/api/bills` | Maintenance bills, payment records, and receipts. |
+| `/api/bills` | Maintenance bills, Razorpay order creation and payment verification, payment records, and receipts. |
 | `/api/finance` | Opening balance, income, expenses, transactions, and fund summary. |
 | `/api/complaints` | Resident complaints and admin management. |
 | `/api/announcements` | Admin publishing and resident announcement feed. |
@@ -213,7 +216,7 @@ The backend currently provides development and production start scripts but does
 
 - Set `VITE_API_URL` and `CORS_ORIGIN` to the deployed frontend and backend origins. `localhost` only refers to the machine making the request.
 - Store `MONGODB_URI` and `JWT_SECRET` as backend deployment secrets. Restrict database network access to the backend where possible.
-- Maintenance checkout currently uses a development-only demo payment. The backend blocks this mock payment path in production. Integrate a real payment gateway with verified callbacks before accepting real payments.
+- Maintenance payments use Razorpay Checkout. Configure test API keys and a webhook secret in `backend/.env` before trying checkout. Use Razorpay test mode first, enable automatic capture, and configure the webhook URL as `https://<your-api-host>/api/bills/razorpay/webhook` for the `payment.captured` event. Switch to live credentials only after the merchant account is approved and test transactions are verified. Never commit gateway secrets.
 - Configure HTTPS, backups, monitoring, logging, and secret management before using real society data.
 
 ---
