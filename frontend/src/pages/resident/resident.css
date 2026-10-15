@@ -1,0 +1,292 @@
+.resident-layout-shell {
+    min-height: 100vh;
+    color: #25343d;
+    background: #fbfaf8;
+}
+
+.resident-topbar {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    min-height: 68px;
+    padding: 0 6%;
+    border-bottom: 1px solid #ebe9e5;
+    background: #fff;
+}
+
+.resident-topbar>strong {
+    color: #24313d;
+    font-size: 20px;
+}
+
+.resident-topbar>strong span {
+    color: #ef715d;
+}
+
+.resident-topbar nav {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+}
+
+.resident-topbar nav a {
+    color: #7d8588;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.resident-topbar nav a.active {
+    color: #ef715d;
+    font-weight: 800;
+}
+
+.resident-topbar>button {
+    padding: 7px 11px;
+    border: 1px solid #e4e2de;
+    border-radius: 7px;
+    color: #68757a;
+    background: #fff;
+    font-size: 11px;
+}
+
+.resident-page {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 46px 24px 70px;
+}
+
+.resident-page h1 {
+    margin: 0 0 8px;
+    color: #24313d;
+    font-size: 34px;
+    letter-spacing: -1px;
+}
+
+.resident-intro {
+    margin: 0 0 25px;
+    color: #7e8490;
+    font-size: 13px;
+}
+
+.resident-hero {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 24px;
+    margin-bottom: 18px;
+    border-radius: 10px;
+    color: #fff;
+    background: #31434f;
+}
+
+.resident-hero strong {
+    font-size: 25px;
+}
+
+.resident-hero span {
+    color: #c9d2d2;
+    font-size: 12px;
+}
+
+.resident-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+}
+
+.resident-cards a,
+.resident-cards article,
+.detail-panel,
+.announcement {
+    display: block;
+    padding: 20px;
+    border: 1px solid #ebe9e5;
+    border-radius: 10px;
+    color: inherit;
+    background: #fff;
+    text-decoration: none;
+}
+
+.resident-cards a:hover {
+    border-color: #ef715d;
+}
+
+.resident-cards span,
+.resident-cards small,
+.property-grid span {
+    display: block;
+    color: #969d9e;
+    font-size: 10px;
+}
+
+.resident-cards strong {
+    display: block;
+    margin: 18px 0 4px;
+    color: #405158;
+    font-size: 21px;
+}
+
+.resident-cards small {
+    font-size: 11px;
+}
+
+.announcement {
+    margin-top: 18px;
+}
+
+.announcement h2 {
+    margin: 0 0 7px;
+    color: #405158;
+    font-size: 18px;
+}
+
+.announcement p:last-child {
+    margin: 0;
+    color: #8d9698;
+    font-size: 12px;
+}
+
+.property-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0eeeb;
+}
+
+.property-title strong {
+    color: #405158;
+    font-size: 25px;
+}
+
+.property-title span {
+    color: #8a9698;
+    font-size: 12px;
+}
+
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 15px;
+    padding-top: 22px;
+}
+
+.property-grid strong {
+    display: block;
+    margin-top: 5px;
+    color: #58676c;
+    font-size: 13px;
+}
+
+.parking-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.parking-list .detail-panel>strong {
+    display: block;
+    color: #405158;
+    font-size: 22px;
+}
+
+.parking-list .detail-panel>span {
+    display: block;
+    margin: 7px 0 15px;
+    color: #5c8a6c;
+    font-size: 11px;
+}
+
+.parking-list p {
+    margin: 0;
+    color: #919a9b;
+    font-size: 11px;
+}
+
+.profile-panel {
+    max-width: 500px;
+}
+
+.profile-panel label {
+    display: block;
+    margin-bottom: 15px;
+    color: #6e777d;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.profile-panel input {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px;
+    border: 1px solid #e4e2de;
+    border-radius: 7px;
+    color: #58656a;
+    background: #fbfaf8;
+    font: inherit;
+    font-size: 12px;
+}
+
+.profile-note {
+    margin: 5px 0 0;
+    color: #a0a5a3;
+    font-size: 11px;
+}
+
+@media (max-width: 700px) {
+    .resident-topbar {
+        gap: 15px;
+        padding: 0 18px;
+    }
+
+    .resident-topbar nav {
+        gap: 10px;
+        overflow: auto;
+    }
+
+    .resident-topbar>button {
+        display: none;
+    }
+
+    .resident-page {
+        padding: 30px 18px;
+    }
+
+    .resident-cards,
+    .parking-list {
+        grid-template-columns: 1fr;
+    }
+
+    .property-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resident-hero {
+        display: block;
+    }
+
+    .resident-hero span {
+        display: block;
+        margin-top: 5px;
+    }
+
+}
+.relationship-box {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e8e4df;
+}
+
+.relationship-box span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.82rem;
+  color: #718096;
+}
+
+.relationship-box strong {
+  display: block;
+  font-size: 1.25rem;
+  color: #17324d;
+}

@@ -1,0 +1,252 @@
+.admin-dashboard {
+    padding: 42px 5.5% 60px;
+}
+
+.admin-welcome {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    max-width: 1180px;
+    margin: 0 auto 30px;
+}
+
+.admin-kicker {
+    margin: 0 0 8px;
+    color: #a3a09b;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.admin-welcome h1 {
+    margin: 0 0 7px;
+    color: #24313d;
+    font-size: clamp(28px, 3vw, 38px);
+    letter-spacing: -1.5px;
+}
+
+.admin-welcome>div>p:last-child {
+    margin: 0;
+    color: #7e8490;
+    font-size: 13px;
+}
+
+.admin-primary-action,
+.admin-secondary-action {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 7px;
+    color: #fff;
+    background: #ef715d;
+    font-size: 11px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.admin-primary-action:hover {
+    background: #db5f4c;
+}
+
+.admin-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+    max-width: 1180px;
+    margin: 0 auto 20px;
+}
+
+.admin-stat-card,
+.admin-panel {
+    border: 1px solid #ebe9e5;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 8px 25px rgba(36, 49, 61, .04);
+}
+
+.admin-stat-card {
+    min-height: 140px;
+    padding: 18px;
+}
+
+.admin-stat-card>span {
+    color: #92918c;
+    font-size: 11px;
+}
+
+.admin-stat-card strong {
+    display: block;
+    margin: 18px 0 4px;
+    color: #405158;
+    font-size: 27px;
+    letter-spacing: -1px;
+}
+
+.admin-stat-card small {
+    color: #9a9994;
+    font-size: 10px;
+}
+
+.admin-stat-card.coral {
+    border-color: #f2c7bb;
+    background: #fff0ec;
+}
+
+.admin-stat-card.mint {
+    background: #f1f8f3;
+}
+
+.admin-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(260px, .6fr);
+    gap: 13px;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.admin-panel {
+    padding: 22px;
+}
+
+.admin-panel-heading {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.admin-panel h2,
+.admin-quick-panel h2 {
+    margin: 0;
+    color: #405158;
+    font-size: 18px;
+}
+
+.admin-link {
+    border: 0;
+    color: #ef715d;
+    background: transparent;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.activity-list article {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-height: 61px;
+    border-top: 1px solid #f0eeeb;
+}
+
+.activity-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #c8d8d0;
+}
+
+.activity-dot.setup {
+    background: #ef8974;
+}
+
+.activity-dot.planned {
+    background: #edd27b;
+}
+
+.activity-list article div {
+    flex: 1;
+}
+
+.activity-list strong {
+    color: #58676c;
+    font-size: 12px;
+}
+
+.activity-list p {
+    margin: 3px 0 0;
+    color: #9ba09e;
+    font-size: 10px;
+}
+
+.activity-list em {
+    padding: 4px 7px;
+    border-radius: 5px;
+    color: #6c8e7a;
+    background: #edf7f0;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 800;
+}
+
+.activity-list em.planned {
+    color: #9b7b2d;
+    background: #fff5d3;
+}
+
+.admin-quick-panel {
+    background: #31434f;
+}
+
+.admin-quick-panel .admin-kicker {
+    color: #b8c8c9;
+}
+
+.admin-quick-panel h2 {
+    color: #fff;
+}
+
+.admin-quick-panel>p:not(.admin-kicker) {
+    margin: 12px 0 22px;
+    color: #c7d0d1;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.admin-secondary-action {
+    color: #31434f;
+    background: #fff;
+}
+
+.admin-secondary-action:hover {
+    color: #ef715d;
+}
+
+@media (max-width: 900px) {
+    .admin-stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .admin-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.admin-welcome {
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .admin-dashboard {
+        padding: 28px 18px;
+    }
+
+    .admin-welcome {
+        display: block;
+    }
+
+    .admin-primary-action {
+        margin-top: 20px;
+    }
+
+    .admin-stat-grid {
+        gap: 9px;
+    }
+
+    .admin-stat-card {
+        padding: 14px;
+    }
+
+    .admin-stat-card strong {
+        font-size: 22px;
+    }
+}

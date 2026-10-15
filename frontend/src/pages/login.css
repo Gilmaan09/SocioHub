@@ -1,0 +1,107 @@
+.login-page {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: 24px;
+    background: #f4f1ec;
+}
+
+.login-card {
+    width: min(100%, 390px);
+    padding: 36px;
+    border: 1px solid #ebe9e5;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 14px 35px rgba(36, 49, 61, .08);
+}
+
+.login-brand {
+    display: block;
+    margin-bottom: 35px;
+    color: #24313d;
+    font-size: 23px;
+}
+
+.login-brand span {
+    color: #ef715d;
+}
+
+.login-card h1 {
+    margin: 0 0 8px;
+    color: #24313d;
+    font-size: 30px;
+}
+
+.login-card>p:not(.page-kicker) {
+    margin: 0 0 24px;
+    color: #7e8490;
+    font-size: 12px;
+}
+
+.login-card label {
+    display: block;
+    margin-bottom: 15px;
+    color: #6e777d;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.login-card input {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 11px;
+    border: 1px solid #e4e2de;
+    border-radius: 7px;
+    outline: 0;
+    background: #fbfaf8;
+    font: inherit;
+    font-size: 12px;
+}
+
+.login-card input:focus {
+    border-color: #ef715d;
+    box-shadow: 0 0 0 3px #fff0ec;
+}
+
+.login-card .primary-button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.login-card select {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 11px;
+    border: 1px solid #e4e2de;
+    border-radius: 7px;
+    color: #58656a;
+    background: #fbfaf8;
+    font: inherit;
+    font-size: 12px;
+}
+
+.register-card {
+    max-width: 430px;
+}
+
+.success-message {
+    margin-bottom: 16px;
+    padding: 10px;
+    border-radius: 7px;
+    color: #4d8e6d;
+    background: #e6f5eb;
+    font-size: 11px;
+}
+
+.login-switch {
+    margin: 18px 0 0 !important;
+    text-align: center;
+}
+
+.login-switch a {
+    color: #ef715d;
+    font-weight: 800;
+    text-decoration: none;
+}

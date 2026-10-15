@@ -1,0 +1,144 @@
+.attendance-page {
+    padding: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.attendance-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.attendance-header h1 {
+    margin: 6px 0 8px;
+    font-size: 32px;
+}
+
+.attendance-header p:not(.page-kicker) {
+    margin: 0;
+    color: #66716b;
+}
+
+.attendance-refresh {
+    border: 1px solid #d7dfda;
+    background: #ffffff;
+    color: #173d31;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.attendance-refresh:hover {
+    background: #f4f7f5;
+}
+
+.attendance-refresh:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.attendance-error {
+    background: #fff0f0;
+    color: #a33a3a;
+    border: 1px solid #f0caca;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.attendance-empty {
+    background: #ffffff;
+    border: 1px solid #e1e7e3;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    color: #66716b;
+}
+
+.attendance-empty h2 {
+    color: #173d31;
+    margin-top: 0;
+}
+
+.attendance-table-wrapper {
+    background: #ffffff;
+    border: 1px solid #e1e7e3;
+    border-radius: 16px;
+    overflow-x: auto;
+    box-shadow: 0 8px 24px rgba(20, 50, 40, 0.05);
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+.attendance-table th,
+.attendance-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid #edf0ee;
+}
+
+.attendance-table th {
+    background: #f7f9f8;
+    color: #52615a;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.attendance-table td {
+    color: #263a32;
+    font-size: 14px;
+}
+
+.attendance-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.attendance-status {
+    display: inline-flex;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.attendance-status.active {
+    background: #e8f6ed;
+    color: #237342;
+}
+
+.attendance-status.completed {
+    background: #eef1ef;
+    color: #59655f;
+}
+
+@media (max-width: 700px) {
+    .attendance-page {
+        padding: 20px 16px;
+    }
+
+    .attendance-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .attendance-header h1 {
+        font-size: 28px;
+    }
+
+    .attendance-refresh {
+        width: 100%;
+    }
+
+    .attendance-table-wrapper {
+        border-radius: 12px;
+    }
+}

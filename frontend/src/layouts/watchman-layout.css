@@ -1,0 +1,132 @@
+.watchman-shell {
+    min-height: 100vh;
+    display: flex;
+    background: #f8f6f1;
+}
+
+.watchman-sidebar {
+    width: 250px;
+    min-height: 100vh;
+    padding: 24px 18px;
+    background: #0f3d2e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.watchman-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+.watchman-brand span:last-child span {
+    opacity: 0.7;
+}
+
+.watchman-brand .brand-mark {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: white;
+    color: #0f3d2e;
+}
+
+.watchman-label {
+    margin: 0 0 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    opacity: 0.65;
+}
+
+.watchman-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.watchman-sidebar nav a {
+    padding: 11px 13px;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.watchman-sidebar nav a:hover,
+.watchman-sidebar nav a.active {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+}
+
+.watchman-sidebar-bottom {
+    margin-top: auto;
+}
+
+.watchman-user {
+    padding: 14px 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.watchman-user small {
+    opacity: 0.6;
+}
+
+.watchman-signout {
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+}
+
+.watchman-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.watchman-navbar {
+    height: 70px;
+    padding: 0 32px;
+    background: white;
+    border-bottom: 1px solid #e8e4dc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.watchman-navbar div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.watchman-navbar span {
+    font-size: 13px;
+    color: #777;
+}
+
+.watchman-content {
+    padding: 32px;
+}
+
+@media (max-width: 768px) {
+    .watchman-sidebar {
+        width: 210px;
+    }
+
+    .watchman-content {
+        padding: 20px;
+    }
+}

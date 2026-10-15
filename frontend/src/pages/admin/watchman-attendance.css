@@ -1,0 +1,154 @@
+.admin-attendance-page {
+    padding: 32px;
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+.admin-attendance-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.admin-attendance-header h1 {
+    margin: 6px 0 8px;
+    font-size: 32px;
+}
+
+.admin-attendance-header p:not(.page-kicker) {
+    margin: 0;
+    color: #66716b;
+}
+
+.admin-attendance-refresh {
+    border: 1px solid #d7dfda;
+    background: #ffffff;
+    color: #173d31;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-attendance-refresh:hover {
+    background: #f4f7f5;
+}
+
+.admin-attendance-refresh:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-attendance-error {
+    background: #fff0f0;
+    color: #a33a3a;
+    border: 1px solid #f0caca;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.admin-attendance-empty {
+    background: #ffffff;
+    border: 1px solid #e1e7e3;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    color: #66716b;
+}
+
+.admin-attendance-empty h2 {
+    color: #173d31;
+    margin-top: 0;
+}
+
+.admin-attendance-table-wrapper {
+    background: #ffffff;
+    border: 1px solid #e1e7e3;
+    border-radius: 16px;
+    overflow-x: auto;
+    box-shadow: 0 8px 24px rgba(20, 50, 40, 0.05);
+}
+
+.admin-attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
+
+.admin-attendance-table th,
+.admin-attendance-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid #edf0ee;
+}
+
+.admin-attendance-table th {
+    background: #f7f9f8;
+    color: #52615a;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.admin-attendance-table td {
+    color: #263a32;
+    font-size: 14px;
+}
+
+.admin-attendance-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.attendance-watchman {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.attendance-watchman strong {
+    color: #173d31;
+}
+
+.attendance-watchman small {
+    color: #7a847f;
+}
+
+.admin-attendance-status {
+    display: inline-flex;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.admin-attendance-status.active {
+    background: #e8f6ed;
+    color: #237342;
+}
+
+.admin-attendance-status.completed {
+    background: #eef1ef;
+    color: #59655f;
+}
+
+@media (max-width: 700px) {
+    .admin-attendance-page {
+        padding: 20px 16px;
+    }
+
+    .admin-attendance-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-attendance-header h1 {
+        font-size: 28px;
+    }
+
+    .admin-attendance-refresh {
+        width: 100%;
+    }
+}
