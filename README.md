@@ -1,148 +1,119 @@
-# SocioHub
+# 🏘️ SocioHub – Society Management Platform
 
-SocioHub is a web application for managing the day-to-day operations of a residential society. It provides separate workspaces for society administrators, owners and tenants, and watchmen. The frontend is a React single-page application; the API is built with Express and MongoDB/Mongoose.
+A full-stack application for managing the everyday operations of a residential society. SocioHub gives administrators, residents, and watchmen dedicated workspaces for society operations, maintenance, community updates, and visitor handling.
 
-## Contents
+---
 
-- [Features](#features)
-- [Roles and access](#roles-and-access)
-- [Technology](#technology)
-- [Project layout](#project-layout)
-- [Requirements](#requirements)
-- [Run locally](#run-locally)
-- [Environment variables](#environment-variables)
-- [Data and API](#data-and-api)
-- [Checks](#checks)
-- [Production notes](#production-notes)
+## 🚀 Features
 
-## Features
+### 🏢 Society Administration
 
-### Society administration
-
-- Register a society and its first administrator.
-- Maintain society details, wings, flats, parking, and resident assignments.
-- Manage owner and tenant accounts, including flat assignment and replacement confirmation when a flat is already assigned.
-- Create maintenance bills and review their status and payment history.
-- Record the society opening balance, income, and expenses; view the current fund balance and transactions.
-- Review and manage complaints.
-- Publish society announcements.
+- Register a society and its first administrator account.
+- Manage society details, wings, flats, parking, residents, and watchmen.
+- Assign residents to flats with safeguards against accidental replacement.
+- Create maintenance bills and review payment history.
+- Track the society opening balance, income, expenses, fund balance, and transactions.
+- Review complaints and publish announcements.
 - View reports for maintenance, income and expenses, complaints, and watchman attendance.
-- Manage watchman accounts and review attendance.
-- Update the administrator profile and password.
+- Manage the administrator profile and password.
 
-The admin workspace does not include a visitor log. Visitor handling is available to watchmen and residents.
+### 🏠 Resident & Tenant Workspace
 
-### Resident and tenant workspace
+- View dashboard, assigned flat, parking, and society information.
+- Read society amenities and internal features.
+- View maintenance bills and payment history; print or save bills and receipts as PDF through the browser print dialog.
+- Submit and follow up on complaints.
+- Read announcements and notifications.
+- Join wing and society discussions.
+- View visitors registered for the resident's flat and approve or reject requests.
+- View the society watchman directory and manage profile details.
 
-- View dashboard information, assigned flat, and parking details.
-- Read society information, amenities, and internal features.
-- View maintenance bills and payment history, and print or save a bill/receipt as PDF through the browser print dialog.
-- Submit and follow complaints.
-- Read announcements and receive notifications.
-- Participate in wing and society community discussions.
-- View visitors registered for their flat and approve or reject requests.
-- View society watchmen and manage their own profile and password.
+Owners and tenants currently share the same resident features, with role information shown where applicable.
 
-Owners and tenants currently use the same resident feature set; the assigned role is shown where relevant.
+### 🛡️ Watchman Workspace
 
-### Watchman workspace
-
-- Register visitors against flats in the watchman's society.
+- Register visitors for flats in the watchman's society.
 - Review visitor requests and record entry and exit activity.
 - Start and end duty shifts and view attendance history.
-- View the flat list needed for visitor registration. Resident contact details are not included in the watchman's flat listing.
+- Look up flats needed for visitor registration.
 
-## Roles and access
+The administrator workspace does not include a visitor log. Visitor handling is available to watchmen and residents.
 
-The backend enforces authorization on API routes; frontend route checks provide the matching user experience.
+### 🔐 Roles & Data Access
 
-| Role | Main access |
-| --- | --- |
-| `ADMIN` | Society setup, resident and watchman administration, bills, finance, complaints, announcements, reports, and attendance review. |
-| `OWNER` | Resident workspace, own flat and visitor workflows, bills, complaints, community, and announcements. |
-| `TENANT` | Resident workspace, own flat and visitor workflows, bills, complaints, community, and announcements. |
-| `WATCHMAN` | Visitor operations, flat lookup for visitor registration, own attendance, and profile. |
+- **Admin:** Society setup, resident and watchman management, maintenance, finance, complaints, announcements, reports, and attendance review.
+- **Owner:** Resident workspace, assigned flat and visitor approvals, bills, complaints, community, and announcements.
+- **Tenant:** Resident workspace, assigned flat and visitor approvals, bills, complaints, community, and announcements.
+- **Watchman:** Visitor operations, flat lookup for visitor registration, own attendance, and profile.
 
-Records are scoped to a society in the backend. Resident bill, complaint, and visitor operations are further scoped to the authenticated resident's assigned flat where appropriate.
+The backend enforces role permissions and scopes records to the authenticated user's society. Resident bill, complaint, and visitor operations are scoped to the resident's assigned flat where applicable.
 
-## Technology
+---
 
-- **Frontend:** React 19, React Router, Vite
-- **Backend:** Node.js, Express 5
-- **Database:** MongoDB with Mongoose
-- **Authentication:** JSON Web Tokens (JWT), with passwords hashed using bcryptjs
-- **Other backend packages:** CORS, dotenv
+## 🛠️ Tech Stack
 
-## Project layout
+### Frontend
+
+- React 19
+- React Router
+- Vite
+
+### Backend
+
+- Node.js
+- Express 5
+- Mongoose
+
+### Database & Authentication
+
+- MongoDB
+- JSON Web Tokens (JWT)
+- bcryptjs password hashing
+- dotenv and CORS
+
+---
+
+## 📁 Project Structure
 
 ```text
 SocioHub/
-|-- frontend/
-|   |-- public/
-|   `-- src/
-|       |-- components/
-|       |-- layouts/
-|       |-- pages/
-|       `-- services/       # Frontend API client
-`-- backend/
-    `-- src/
-        |-- config/         # MongoDB connection
-        |-- controllers/    # HTTP request handlers
-        |-- middleware/     # Authentication and role authorization
-        |-- models/         # Mongoose data models
-        |-- routes/         # REST API routes
-        |-- services/       # Application/business logic
-        `-- utils/
+├── backend/
+│   └── src/
+│       ├── config/       # Database connection
+│       ├── controllers/  # HTTP request handlers
+│       ├── middleware/   # Authentication and role checks
+│       ├── models/       # Mongoose models
+│       ├── routes/       # REST API routes
+│       ├── services/     # Application logic
+│       └── utils/
+└── frontend/
+    ├── public/
+    └── src/
+        ├── components/
+        ├── layouts/
+        ├── pages/
+        └── services/     # Frontend API client
 ```
 
-## Requirements
+---
+
+## ⚡ How to Run Locally
+
+### Requirements
 
 - Node.js and npm
-- A MongoDB database, either a local MongoDB server or a MongoDB Atlas cluster
+- MongoDB running locally, or a MongoDB Atlas connection string
 
-## Run locally
+### 1. Clone the repository
 
-Open two terminal windows from the repository root.
-
-### 1. Configure the backend
-
-Create `backend/.env` using the variables shown below. For local MongoDB, the default database URI is `mongodb://127.0.0.1:27017/sociohub`; you can omit `MONGODB_URI` when using that local default.
-
-Install dependencies and start the API:
-
-```powershell
-cd backend
-npm install
-npm run dev
+```bash
+git clone https://github.com/Gilmaan09/SocioHub.git
+cd SocioHub
 ```
 
-The backend listens on port `4000` by default. Check `http://localhost:4000/api/health` for the health response.
+### 2. Configure the backend
 
-### 2. Configure and start the frontend
-
-Create `frontend/.env` and set `VITE_API_URL` to the backend API base URL. For local development:
-
-```dotenv
-VITE_API_URL=http://localhost:4000/api
-```
-
-Then install dependencies and start Vite:
-
-```powershell
-cd frontend
-npm install
-npm run dev
-```
-
-Open the local URL printed by Vite, normally `http://localhost:5173`.
-
-### 3. Create an account
-
-Use **Create account** from the application sign-in page to register a society and its first admin account. The administrator can then configure wings, flats, residents, and watchmen. Residents and watchmen are managed by the society administrator.
-
-## Environment variables
-
-### Backend (`backend/.env`)
+Create `backend/.env`:
 
 ```dotenv
 PORT=4000
@@ -152,59 +123,114 @@ JWT_EXPIRES_IN=7d
 CORS_ORIGIN=http://localhost:5173
 ```
 
-- `PORT`: HTTP port for the API. Defaults to `4000`.
-- `MONGODB_URI`: MongoDB connection string. Defaults to the local `sociohub` database shown above. For Atlas, use the connection string from Atlas and keep it private.
-- `JWT_SECRET`: required to sign and verify login tokens. Set a strong, unique secret outside development.
-- `JWT_EXPIRES_IN`: JWT lifetime accepted by `jsonwebtoken`; defaults to `7d`.
-- `CORS_ORIGIN`: comma-separated list of browser origins allowed to call the API. If unset, local Vite origins on ports `5173` are allowed.
+Install dependencies and start the API:
 
-### Frontend (`frontend/.env`)
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+The API runs on `http://localhost:4000` by default. Verify it at `http://localhost:4000/api/health`.
+
+### 3. Configure and start the frontend
+
+In another terminal, from the repository root, create `frontend/.env`:
 
 ```dotenv
 VITE_API_URL=http://localhost:4000/api
 ```
 
-`VITE_API_URL` is the base URL for the API. Frontend variables prefixed with `VITE_` are included in the browser build; never put passwords, database URIs, or signing secrets in frontend environment variables.
+Then install dependencies and start Vite:
 
-Environment files are excluded by the root `.gitignore`. Keep real secrets in local environment files or your hosting provider's secret settings, not in GitHub.
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## Data and API
+Open the local URL shown by Vite, usually `http://localhost:5173`.
 
-The Express API is mounted under `/api`. Its main resource groups are:
+### 4. Create your society
 
-| Route | Purpose |
+Choose **Create account** on the sign-in page to register a society and its first administrator. The administrator can then configure wings, flats, residents, and watchmen.
+
+---
+
+## 🔧 Environment Variables
+
+### Backend (`backend/.env`)
+
+| Variable | Purpose |
+| --- | --- |
+| `PORT` | API port; defaults to `4000`. |
+| `MONGODB_URI` | MongoDB connection string; defaults to the local `sociohub` database. |
+| `JWT_SECRET` | Secret used to sign and verify authentication tokens; set a strong, unique value. |
+| `JWT_EXPIRES_IN` | Token lifetime; defaults to `7d`. |
+| `CORS_ORIGIN` | Comma-separated allowed frontend origins; local Vite origins are used if unset. |
+
+For Atlas, use the connection string from your cluster and keep it private. Environment files are excluded from Git. Never commit database credentials or JWT secrets. Frontend variables beginning with `VITE_` are bundled into the browser and must not contain secrets.
+
+---
+
+## 🔌 API Overview
+
+The Express API is mounted under `/api`.
+
+| Endpoint | Purpose |
 | --- | --- |
 | `/api/auth` | Society registration, sign-in, current user, profile, and password change. |
-| `/api/societies` | Society details for the authenticated society. |
+| `/api/societies` | Society details. |
 | `/api/wings`, `/api/flats`, `/api/parking` | Society structure and parking assignments. |
-| `/api/residents`, `/api/watchmen` | Admin account and assignment management; resident watchman directory. |
-| `/api/bills` | Maintenance bills and resident bill payment/receipt records. |
-| `/api/finance` | Admin opening balance, income, expenses, transactions, and fund summary. |
-| `/api/complaints` | Resident complaint submission and admin complaint management. |
-| `/api/announcements` | Admin announcements and resident announcement feed. |
-| `/api/community` | Society/wing posts and comments. |
-| `/api/visitors` | Watchman visitor registration and resident approval workflows. |
-| `/api/watchman-attendance` | Watchman duty and admin attendance views. |
-| `/api/notifications` | Authenticated-user notification inbox and read status. |
-| `/api/reports` | Admin society reports. |
+| `/api/residents`, `/api/watchmen` | Resident and watchman account management. |
+| `/api/bills` | Maintenance bills, payment records, and receipts. |
+| `/api/finance` | Opening balance, income, expenses, transactions, and fund summary. |
+| `/api/complaints` | Resident complaints and admin management. |
+| `/api/announcements` | Admin publishing and resident announcement feed. |
+| `/api/community` | Society and wing discussions. |
+| `/api/visitors` | Watchman visitor registration and resident approval. |
+| `/api/watchman-attendance` | Watchman duty records and admin attendance views. |
+| `/api/notifications` | Notification inbox and read status. |
+| `/api/reports` | Society reports for administrators. |
 | `/api/health` | API health check. |
 
-MongoDB models include societies, users, wings, flats, parking, maintenance bills, payments, finance transactions, complaints, announcements, community posts/comments, visitors, watchman attendance, and notifications.
+---
 
-## Checks
+## ✅ Project Checks
 
-From `frontend/`:
+From the `frontend/` directory:
 
-```powershell
+```bash
 npm run lint
 npm run build
 ```
 
-The backend package currently provides `dev` and `start` scripts; it does not currently define an automated test script.
+The backend currently provides development and production start scripts but does not define an automated test script.
 
-## Production notes
+---
 
-- Host the frontend and backend at reachable URLs and configure `VITE_API_URL` and `CORS_ORIGIN` for those deployed origins. `localhost` only refers to the machine making the request.
-- Configure `MONGODB_URI` and `JWT_SECRET` as backend secrets. Allow Atlas network access only from the backend's required address(es), not every IP.
-- The current maintenance checkout is a **development-only demo payment**. The backend blocks this mock payment path in production. A real payment gateway integration with verified payment callbacks must be implemented before collecting real payments.
-- Review the deployment provider's HTTPS, backup, monitoring, logging, and secret-management configuration before using real society data.
+## 🚀 Production Notes
+
+- Set `VITE_API_URL` and `CORS_ORIGIN` to the deployed frontend and backend origins. `localhost` only refers to the machine making the request.
+- Store `MONGODB_URI` and `JWT_SECRET` as backend deployment secrets. Restrict database network access to the backend where possible.
+- Maintenance checkout currently uses a development-only demo payment. The backend blocks this mock payment path in production. Integrate a real payment gateway with verified callbacks before accepting real payments.
+- Configure HTTPS, backups, monitoring, logging, and secret management before using real society data.
+
+---
+
+## 🌟 Highlights
+
+- Role-based workspaces for administrators, residents, and watchmen.
+- Society-scoped data and backend authorization.
+- End-to-end society operations from resident management to finance and reports.
+- Responsive React interface backed by a REST API and MongoDB.
+
+## 🔮 Future Improvements
+
+- Integrate a production payment gateway.
+- Add automated backend and end-to-end tests.
+- Add project screenshots and deployment instructions once a production environment is available.
+
+## 👨‍💻 Author
+
+**Gilmaan Patait**
