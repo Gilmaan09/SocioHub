@@ -232,8 +232,58 @@ The backend currently provides development and production start scripts but does
 
 - Integrate a production payment gateway.
 - Add automated backend and end-to-end tests.
-- Add project screenshots and deployment instructions once a production environment is available.
+- Add deployment instructions once a production environment is available.
 
 ## 👨‍💻 Author
 
 **Gilmaan Patait**
+
+## Screenshots
+
+### Home Page
+
+![Home Page](frontend/public/Screenshots/Home%20Page.png)
+
+### Admin Dashboard
+
+![Admin Dashboard](frontend/public/Screenshots/Admin%20Dashboard.png)
+
+### Reports
+
+![Reports](frontend/public/Screenshots/Reports.png)
+
+### Society Fund
+
+![Society Fund](frontend/public/Screenshots/Society%20Fund.png)
+
+### Flats Info
+
+![Flats Info](frontend/public/Screenshots/Flats%20Info.png)
+
+### Flat Details
+
+![Flat Details](frontend/public/Screenshots/Flat%20Details.png)
+
+### Resident Dashboard
+
+![Resident Dashboard](frontend/public/Screenshots/Resident%20Dashboard.png)
+
+### Visitors
+
+![Visitors](frontend/public/Screenshots/Visitors.png)
+
+### Community
+
+![Community](frontend/public/Screenshots/Community%20%282%29.png)
+
+### Watchman Dashboard
+
+![Watchman Dashboard](frontend/public/Screenshots/Watchman.png)
+
+### Watchman Attendance
+
+![Watchman Attendance](frontend/public/Screenshots/Watchman%20Attendance.png)
+
+### Watchman Info
+
+![Watchman Info](frontend/public/Screenshots/Watchman%20Info.png)
